@@ -1,145 +1,83 @@
-package asistencia.estudiantes;
+package practica.java;
 
 import java.util.Scanner;
 
-public class ControlAsistenciaEstudiantes {
+public class DescuentosTienda {
 
-	public static void main(String[] args) {
-        final int DIAS_SEMANA     = 5;
-        final int NUM_ESTUDIANTES = 4;
-
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int[][] asistencia = new int[NUM_ESTUDIANTES][DIAS_SEMANA];
-        
-        System.out.println("Registro de asistencia (1 = asistio, 0 = no asistio):");
-        for (int i = 0; i < NUM_ESTUDIANTES; i++) {
-            System.out.println("Estudiante " + (i + 1) + ":");
-            for (int j = 0; j < DIAS_SEMANA; j++) {
-                System.out.print("  Dia " + (j + 1) + ": ");
-                int valor = sc.nextInt();
-                while (valor != 0 && valor != 1) {
-                    System.out.print("    Valor invalido. Ingrese 0 o 1: ");
-                    valor = sc.nextInt();
-                }
-                asistencia[i][j] = valor;
-            }
+
+        // Constantes de descuento por tipo de producto
+        final double DESC_ROPA = 0.10;       // 10%
+        final double DESC_TECNO = 0.05;      // 5%
+        final double DESC_ALIM = 0.02;       // 2%
+        final double DESC_ADICIONAL = 0.05;  // 5% adicional si total > 100000
+
+        // 1. Ingresar número de productos (mínimo 1)
+        System.out.print("Ingrese el número de productos (mínimo 1): ");
+        int n = sc.nextInt();
+        while (n < 1) {
+            System.out.print("Número inválido. Ingrese nuevamente: ");
+            n = sc.nextInt();
         }
 
-        // Menu 
-        int opcion = 0;
-        while (opcion !=5) {
-            System.out.println("\n--- MENU DE OPCIONES ---");
-            System.out.println("1. Ver asistencia por estudiante");
-            System.out.println("2. Ver resumen general");
-            System.out.println("3. Ver estudiantes con asistencia completa");
-            System.out.println("4. Ver dias con mayor asistencia");	            
-            System.out.println("5. Volver a registrar asistencia");
-            System.out.println("6. Salir");
-            System.out.print("Seleccione una opcion: ");
-            opcion = sc.nextInt();
+        // Vectores para almacenar datos de productos
+        int[] tipos = new int[n];
+        String[] nombres = new String[n];
+        double[] precios = new double[n];
 
-            switch (opcion) {
-                case 1:
-                    // Asistencias por estudiante
-                    for (int i = 0; i < NUM_ESTUDIANTES; i++) {
-                        int total = 0;
-                        for (int j = 0; j < DIAS_SEMANA; j++) {
-                            total += asistencia[i][j];
-                        }
-                        System.out.println("Estudiante " + (i + 1) + ": " + total + " asistencias");
-                    }
-                    break;
+        // 2. Ingreso de datos de cada producto
+        sc.nextLine(); // limpiar buffer
+        for (int i = 0; i < n; i++) {
+            System.out.println("\nProducto " + (i + 1) + ":");
 
-                case 2:
-                    // Resumen general
-                    int totalGeneral = 0;
-                    for (int i = 0; i < NUM_ESTUDIANTES; i++) {
-                        for (int j = 0; j < DIAS_SEMANA; j++) {
-                            totalGeneral += asistencia[i][j];
-                        }
-                    }
-                    System.out.println("Total de asistencias en la semana: " + totalGeneral);
-                    break;
-
-                case 3:
-                    // Estudiantes con asistencia completa
-                    int completos = 0;
-                    for (int i = 0; i < NUM_ESTUDIANTES; i++) {
-                        int suma = 0;
-                        for (int j = 0; j < DIAS_SEMANA; j++) {
-                            suma += asistencia[i][j];
-                        }
-                        if (suma == DIAS_SEMANA) {
-                            if (completos == 0) {
-                                System.out.println("Estudiantes con asistencia completa:");
-                            }
-                            System.out.println("  Estudiante " + (i + 1));
-                            completos++;
-                        }
-                    }
-                    if (completos == 0) {
-                        System.out.println("Ningun estudiante tiene asistencia completa");
-                    }
-                    break;
-
-                case 4:
-                    // Dias con mayor asistencia
-                    int[] asistenciaPorDia = new int[DIAS_SEMANA];
-                    for (int j = 0; j < DIAS_SEMANA; j++) {
-                        for (int i = 0; i < NUM_ESTUDIANTES; i++) {
-                            asistenciaPorDia[j] += asistencia[i][j];
-                        }
-                    }
-                    int maxAsistencia = 0;
-                    for (int j = 0; j < DIAS_SEMANA; j++) {
-                        if (asistenciaPorDia[j] > maxAsistencia) {
-                            maxAsistencia = asistenciaPorDia[j];
-                        }
-                    }
-                    System.out.println("Dias con mayor asistencia (" + maxAsistencia + " estudiantes):");
-                    for (int j = 0; j < DIAS_SEMANA; j++) {
-                        if (asistenciaPorDia[j] == maxAsistencia) {
-                            System.out.println("  Dia " + (j + 1));
-                        }
-                    }
-                    break;
-
-                case 5:
-                    // Volver a registrar asistencia
-                    System.out.println("\nReingreso de asistencia (1 = asistio, 0 = no asistio):");
-                    for (int i = 0; i < NUM_ESTUDIANTES; i++) {
-                        System.out.println("Estudiante " + (i + 1) + ":");
-                        for (int j = 0; j < DIAS_SEMANA; j++) {
-                            System.out.print("  Dia " + (j + 1) + ": ");
-                            int valor = sc.nextInt();
-                            while (valor != 0 && valor != 1) {
-                                System.out.print("    Valor invalido. Ingrese 0 o 1: ");
-                                valor = sc.nextInt();
-                            }
-                            asistencia[i][j] = valor;
-                        }
-                    }
-                    break;
-
-                case 6:
-                	// salir del sistema
-                    System.out.println("Saliendo del sistema...");
-                    break;
-
-                default:
-                    System.out.println("Opcion invalida. Intente nuevamente.");
+            System.out.print("Tipo (1: ropa, 2: tecnología, 3: alimentos): ");
+            int tipo = sc.nextInt();
+            while (tipo < 1 || tipo > 3) {
+                System.out.print("Tipo inválido. Ingrese 1, 2 o 3: ");
+                tipo = sc.nextInt();
             }
+            tipos[i] = tipo;
+
+            sc.nextLine(); // limpiar buffer antes de leer el nombre
+            System.out.print("Nombre: ");
+            nombres[i] = sc.nextLine();
+
+            System.out.print("Precio: ");
+            precios[i] = sc.nextDouble();
+            sc.nextLine(); // limpiar buffer
         }
+
+        // 3. Calcular total y aplicar descuentos
+        double totalInicial = 0;
+        double totalConDescuento = 0;
+
+        for (int i = 0; i < n; i++) {
+            totalInicial += precios[i];
+
+            double descuento = 0;
+            if (tipos[i] == 1) descuento = DESC_ROPA;
+            else if (tipos[i] == 2) descuento = DESC_TECNO;
+            else if (tipos[i] == 3) descuento = DESC_ALIM;
+
+            double precioFinal = precios[i] - (precios[i] * descuento);
+            totalConDescuento += precioFinal;
+        }
+
+        // 4. Descuento adicional si supera 100000
+        if (totalInicial > 100000) {
+            totalConDescuento -= totalConDescuento * DESC_ADICIONAL;
+        }
+
+        // 5. Mostrar resultados
+        System.out.println("\n--- RESUMEN DE COMPRA ---");
+        System.out.printf("Total inicial: $%,.2f%n", totalInicial);
+        System.out.printf("Total con descuento: $%,.2f%n", totalConDescuento);
+        System.out.printf("Ahorro: $%,.2f%n", (totalInicial - totalConDescuento));
 
         sc.close();
     }
-}      
-            
-       
-     
-
-		
-		
+}
 		
 				
 		
