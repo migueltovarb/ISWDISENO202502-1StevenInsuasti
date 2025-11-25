@@ -1,0 +1,17 @@
+[
+  {
+    "nombre": "Laboratorio A",
+    "ubicacion": "Edificio Central - Piso 2",
+    "capacidadTotal": 30
+  },
+  {
+    "nombre": "Laboratorio B",
+    "ubicacion": "Edificio Central - Piso 3",
+    "capacidadTotal": 25
+  },
+  {
+    "nombre": "Laboratorio C - Especializado",
+    "ubicacion": "Edificio de Ingeniería - Piso 1",
+    "capacidadTotal": 20
+  }
+]

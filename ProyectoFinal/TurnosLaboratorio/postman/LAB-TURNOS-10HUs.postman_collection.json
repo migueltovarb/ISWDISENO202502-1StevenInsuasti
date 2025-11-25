@@ -1,0 +1,199 @@
+{
+	"info": {
+		"_postman_id": "lab-turnos-10hus",
+		"name": "LAB-TURNOS - 10 Historias Completas",
+		"description": "Colección completa de pruebas para las 10 historias de usuario del sistema de gestión de turnos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "HU001 - Registro de Usuario",
+			"item": [
+				{
+					"name": "Registro Estudiante Exitoso",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Juan Pérez\",\n    \"correo\": \"juan.perez@estudiante.edu\",\n    \"password\": \"password123\",\n    \"rol\": \"ESTUDIANTE\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuarios/registro",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuarios", "registro"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "HU002 - Login",
+			"item": [
+				{
+					"name": "Login Estudiante",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"correo\": \"juan.perez@estudiante.edu\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/usuarios/login", "host": ["{{base_url}}"], "path": ["api", "usuarios", "login"]}
+					}
+				},
+				{
+					"name": "Login Profesor",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"correo\": \"carlos.gomez@profesor.edu\",\n    \"password\": \"profesor123\"\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/usuarios/login", "host": ["{{base_url}}"], "path": ["api", "usuarios", "login"]}
+					}
+				}
+			]
+		},
+		{
+			"name": "HU003 - Consultar Disponibilidad",
+			"item": [
+				{
+					"name": "Listar Laboratorios",
+					"request": {
+						"method": "GET",
+						"url": {"raw": "{{base_url}}/api/disponibilidad/laboratorios", "host": ["{{base_url}}"], "path": ["api", "disponibilidad", "laboratorios"]}
+					}
+				},
+				{
+					"name": "Consultar Disponibilidad",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"laboratorioId\": \"LAB-A\",\n    \"fecha\": \"2025-11-25\",\n    \"franja\": \"FRANJA_07_09\"\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/disponibilidad/consultar", "host": ["{{base_url}}"], "path": ["api", "disponibilidad", "consultar"]}
+					}
+				}
+			]
+		},
+		{
+			"name": "HU004 - Crear Reserva",
+			"item": [
+				{
+					"name": "Crear Reserva",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"laboratorioId\": \"LAB-A\",\n    \"equipoCodigo\": \"PC-A-01\",\n    \"fecha\": \"2025-11-25\",\n    \"franja\": \"FRANJA_07_09\"\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/reservas", "host": ["{{base_url}}"], "path": ["api", "reservas"]}
+					}
+				}
+			]
+		},
+		{
+			"name": "HU005 - Cancelar Reserva",
+			"item": [
+				{
+					"name": "Cancelar Reserva",
+					"request": {
+						"method": "PUT",
+						"url": {"raw": "{{base_url}}/api/reservas/{{reserva_id}}/cancelar", "host": ["{{base_url}}"], "path": ["api", "reservas", "{{reserva_id}}", "cancelar"]}
+					}
+				}
+			]
+		},
+		{
+			"name": "HU006 - Check-in y Check-out",
+			"item": [
+				{
+					"name": "Check-in",
+					"request": {
+						"method": "PUT",
+						"url": {"raw": "{{base_url}}/api/reservas/{{reserva_id}}/checkin", "host": ["{{base_url}}"], "path": ["api", "reservas", "{{reserva_id}}", "checkin"]}
+					}
+				},
+				{
+					"name": "Check-out",
+					"request": {
+						"method": "PUT",
+						"url": {"raw": "{{base_url}}/api/reservas/{{reserva_id}}/checkout", "host": ["{{base_url}}"], "path": ["api", "reservas", "{{reserva_id}}", "checkout"]}
+					}
+				}
+			]
+		},
+		{
+			"name": "HU007 - Ver Mis Reservas",
+			"item": [
+				{
+					"name": "Obtener Mis Reservas",
+					"request": {
+						"method": "GET",
+						"url": {"raw": "{{base_url}}/api/reservas/mis-reservas", "host": ["{{base_url}}"], "path": ["api", "reservas", "mis-reservas"]}
+					}
+				}
+			]
+		},
+		{
+			"name": "HU008 - Bloquear Equipos (Profesor)",
+			"item": [
+				{
+					"name": "Crear Bloqueo",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"laboratorioId\": \"LAB-A\",\n    \"equipoCodigo\": \"PC-A-05\",\n    \"fecha\": \"2025-11-26\",\n    \"franja\": \"FRANJA_15_17\",\n    \"motivo\": \"Mantenimiento programado\"\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/bloqueos", "host": ["{{base_url}}"], "path": ["api", "bloqueos"]}
+					}
+				}
+			]
+		},
+		{
+			"name": "HU009 - Desbloquear Equipos (Profesor)",
+			"item": [
+				{
+					"name": "Desbloquear Equipo",
+					"request": {
+						"method": "PUT",
+						"url": {"raw": "{{base_url}}/api/bloqueos/{{bloqueo_id}}/desbloquear", "host": ["{{base_url}}"], "path": ["api", "bloqueos", "{{bloqueo_id}}", "desbloquear"]}
+					}
+				},
+				{
+					"name": "Listar Mis Bloqueos",
+					"request": {
+						"method": "GET",
+						"url": {"raw": "{{base_url}}/api/bloqueos/mis-bloqueos", "host": ["{{base_url}}"], "path": ["api", "bloqueos", "mis-bloqueos"]}
+					}
+				},
+				{
+					"name": "Listar Bloqueos Activos",
+					"request": {
+						"method": "GET",
+						"url": {"raw": "{{base_url}}/api/bloqueos/activos", "host": ["{{base_url}}"], "path": ["api", "bloqueos", "activos"]}
+					}
+				}
+			]
+		},
+		{
+			"name": "HU010 - Listar Todas las Reservas (Admin)",
+			"item": [
+				{
+					"name": "Obtener Todas las Reservas",
+					"request": {
+						"method": "GET",
+						"url": {"raw": "{{base_url}}/api/reservas", "host": ["{{base_url}}"], "path": ["api", "reservas"]}
+					}
+				}
+			]
+		}
+	]
+}

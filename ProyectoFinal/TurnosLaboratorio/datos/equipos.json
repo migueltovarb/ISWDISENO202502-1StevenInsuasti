@@ -1,0 +1,23 @@
+[
+  {
+    "codigo": "PC-A01",
+    "laboratorioId": "COPIAR_ID_LAB_A",
+    "tipo": "PC",
+    "estado": "DISPONIBLE",
+    "especificaciones": "Intel i7, 16GB RAM, SSD 512GB"
+  },
+  {
+    "codigo": "PC-A02",
+    "laboratorioId": "COPIAR_ID_LAB_A",
+    "tipo": "PC",
+    "estado": "DISPONIBLE",
+    "especificaciones": "Intel i7, 16GB RAM, SSD 512GB"
+  },
+  {
+    "codigo": "PC-A03",
+    "laboratorioId": "COPIAR_ID_LAB_A",
+    "tipo": "PC",
+    "estado": "DISPONIBLE",
+    "especificaciones": "Intel i5, 8GB RAM, SSD 256GB"
+  }
+]

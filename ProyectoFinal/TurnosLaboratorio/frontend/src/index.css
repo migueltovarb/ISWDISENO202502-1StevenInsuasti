@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0f172a;
+  min-height: 100vh;
+  color: #e2e8f0;
+}
+
+/* Botones estilo neomórfico y flat */
+.btn-primary {
+  @apply bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold py-3 px-8 rounded-lg transition-all duration-200 shadow-neon hover:shadow-neon-lg;
+}
+
+.btn-secondary {
+  @apply bg-slate-700 hover:bg-slate-600 text-slate-100 font-semibold py-3 px-8 rounded-lg transition-all duration-200 border-2 border-slate-600;
+}
+
+.btn-success {
+  @apply bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold py-3 px-8 rounded-lg transition-all duration-200 shadow-emerald;
+}
+
+.btn-danger {
+  @apply bg-rose-500 hover:bg-rose-400 text-white font-bold py-3 px-8 rounded-lg transition-all duration-200 shadow-rose;
+}
+
+.btn-warning {
+  @apply bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold py-3 px-8 rounded-lg transition-all duration-200 shadow-amber;
+}
+
+/* Cards estilo glassmorphism */
+.card {
+  @apply bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-slate-700/50 shadow-2xl hover:border-cyan-500/50 transition-all duration-300;
+}
+
+.card-dark {
+  @apply bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-slate-700 shadow-2xl;
+}
+
+/* Input fields estilo moderno oscuro */
+.input-field {
+  @apply w-full px-4 py-3 bg-slate-900/50 border-2 border-slate-700 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all duration-200 text-slate-100 placeholder-slate-500;
+}
+
+/* Badges estilo neon */
+.badge {
+  @apply inline-flex items-center px-3 py-1 text-xs font-bold rounded-md uppercase tracking-wider;
+}
+
+.badge-success {
+  @apply bg-emerald-500/20 text-emerald-400 border border-emerald-500/50;
+}
+
+.badge-warning {
+  @apply bg-amber-500/20 text-amber-400 border border-amber-500/50;
+}
+
+.badge-info {
+  @apply bg-cyan-500/20 text-cyan-400 border border-cyan-500/50;
+}
+
+.badge-danger {
+  @apply bg-rose-500/20 text-rose-400 border border-rose-500/50;
+}
+
+.badge-gray {
+  @apply bg-slate-500/20 text-slate-400 border border-slate-500/50;
+}
+
+.badge-purple {
+  @apply bg-purple-500/20 text-purple-400 border border-purple-500/50;
+}
+
+/* Animaciones */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(6, 182, 212, 0.8);
+  }
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.4s ease-out;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.4s ease-out;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Scrollbar oscuro */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #06b6d4;
+}
+
+/* Efectos de sombra neon */
+.shadow-neon {
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+}
+
+.shadow-neon-lg {
+  box-shadow: 0 0 30px rgba(6, 182, 212, 0.5);
+}
+
+.shadow-emerald {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+.shadow-rose {
+  box-shadow: 0 0 20px rgba(244, 63, 94, 0.3);
+}
+
+.shadow-amber {
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+}
+
+/* Efecto de brillo en hover */
+.hover-glow {
+  @apply transition-all duration-300;
+}
+
+.hover-glow:hover {
+  filter: brightness(1.2);
+  transform: translateY(-2px);
+}

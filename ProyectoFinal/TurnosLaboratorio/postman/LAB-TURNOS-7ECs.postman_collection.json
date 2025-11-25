@@ -1,0 +1,499 @@
+{
+	"info": {
+		"_postman_id": "lab-turnos-7ecs",
+		"name": "LAB-TURNOS - 7 Casos Esenciales",
+		"description": "Colección de pruebas para las 7 historias de usuario principales del sistema de gestión de turnos de laboratorio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "HU001 - Registro de Usuario",
+			"item": [
+				{
+					"name": "Registro Estudiante Exitoso",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response has success true\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Juan Pérez\",\n    \"correo\": \"juan.perez@estudiante.edu\",\n    \"password\": \"password123\",\n    \"rol\": \"ESTUDIANTE\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuarios/registro",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuarios", "registro"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registro Profesor Exitoso",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Dr. Carlos Gómez\",\n    \"correo\": \"carlos.gomez@profesor.edu\",\n    \"password\": \"profesor123\",\n    \"rol\": \"PROFESOR\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuarios/registro",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuarios", "registro"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registro Correo Duplicado (Error)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"María López\",\n    \"correo\": \"juan.perez@estudiante.edu\",\n    \"password\": \"password123\",\n    \"rol\": \"ESTUDIANTE\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuarios/registro",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuarios", "registro"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HU002 - Login",
+			"item": [
+				{
+					"name": "Login Estudiante Exitoso",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has sessionId\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.sessionId).to.exist;",
+									"    pm.environment.set(\"session_id\", jsonData.data.sessionId);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"correo\": \"juan.perez@estudiante.edu\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuarios/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuarios", "login"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Profesor Exitoso",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"correo\": \"carlos.gomez@profesor.edu\",\n    \"password\": \"profesor123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuarios/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuarios", "login"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Credenciales Incorrectas (Error)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"correo\": \"juan.perez@estudiante.edu\",\n    \"password\": \"wrongpassword\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuarios/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuarios", "login"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verificar Sesión",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/usuarios/session",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuarios", "session"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/usuarios/logout",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuarios", "logout"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HU003 - Consultar Disponibilidad",
+			"item": [
+				{
+					"name": "Listar Laboratorios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/disponibilidad/laboratorios",
+							"host": ["{{base_url}}"],
+							"path": ["api", "disponibilidad", "laboratorios"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Disponibilidad Lab A",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Obtener el ID del laboratorio si no existe",
+									"if (!pm.environment.get('lab_a_id')) {",
+									"    pm.sendRequest({",
+									"        url: pm.environment.get('base_url') + '/api/disponibilidad/laboratorios',",
+									"        method: 'GET'",
+									"    }, function (err, response) {",
+									"        if (!err) {",
+									"            const labs = response.json();",
+									"            const labA = labs.find(l => l.nombre.includes('Laboratorio A'));",
+									"            if (labA) {",
+									"                pm.environment.set('lab_a_id', labA.id);",
+									"            }",
+									"        }",
+									"    });",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"laboratorioId\": \"LAB-A\",\n    \"fecha\": \"2025-11-25\",\n    \"franja\": \"FRANJA_07_09\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/disponibilidad/consultar",
+							"host": ["{{base_url}}"],
+							"path": ["api", "disponibilidad", "consultar"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Disponibilidad Lab B Tarde",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"laboratorioId\": \"LAB-B\",\n    \"fecha\": \"2025-11-25\",\n    \"franja\": \"FRANJA_13_15\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/disponibilidad/consultar",
+							"host": ["{{base_url}}"],
+							"path": ["api", "disponibilidad", "consultar"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HU004 - Crear Reserva",
+			"item": [
+				{
+					"name": "Crear Reserva Exitosa",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response has reservaId\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.reservaId).to.exist;",
+									"    pm.environment.set(\"reserva_id\", jsonData.data.reservaId);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"laboratorioId\": \"LAB-A\",\n    \"equipoCodigo\": \"PC-A-01\",\n    \"fecha\": \"2025-11-25\",\n    \"franja\": \"MANANA\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservas",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservas"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Reserva Equipo Ocupado (Error)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"laboratorioId\": \"LAB-A\",\n    \"equipoCodigo\": \"PC-A-01\",\n    \"fecha\": \"2025-11-25\",\n    \"franja\": \"MANANA\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservas",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservas"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Reserva Sin Sesión (Error)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"laboratorioId\": \"LAB-B\",\n    \"equipoCodigo\": \"PC-B-01\",\n    \"fecha\": \"2025-11-25\",\n    \"franja\": \"TARDE\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservas",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservas"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HU005 - Cancelar Reserva",
+			"item": [
+				{
+					"name": "Cancelar Reserva Exitosa",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/reservas/{{reserva_id}}/cancelar",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservas", "{{reserva_id}}", "cancelar"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelar Reserva Ya Cancelada (Error)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/reservas/{{reserva_id}}/cancelar",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservas", "{{reserva_id}}", "cancelar"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HU006 - Check-in y Check-out",
+			"item": [
+				{
+					"name": "Check-in Exitoso",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/reservas/{{reserva_id}}/checkin",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservas", "{{reserva_id}}", "checkin"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check-out Exitoso",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/reservas/{{reserva_id}}/checkout",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservas", "{{reserva_id}}", "checkout"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check-in Fuera de Horario (Error)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/reservas/{{reserva_id}}/checkin",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservas", "{{reserva_id}}", "checkin"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HU007 - Ver Mis Reservas",
+			"item": [
+				{
+					"name": "Obtener Mis Reservas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/reservas/mis-reservas",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservas", "mis-reservas"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Reserva por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/reservas/{{reserva_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservas", "{{reserva_id}}"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
+
